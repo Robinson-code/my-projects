@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bank Account System</title>
+    <script src="script.js">const accountForm = document.getElementById('account-form');
+const accountNumberInput = document.getElementById('account-number');
+const accountHolderNameInput = document.getElementById('account-holder-name');
+const balanceInput = document.getElementById('balance');
+const depositBtn = document.getElementById('deposit-btn');
+const withdrawBtn = document.getElementById('withdraw-btn');
+const accountInfoDiv = document.getElementById('account-info');
+
+accountForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const accountNumber = accountNumberInput.value;
+    const accountHolderName = accountHolderNameInput.value;
+    const balance = parseFloat(balanceInput.value);
+
+    const account = new BankAccount(accountNumber, accountHolderName, balance);
+    const accounts = BankAccount.getAccounts();
+    accounts.push(account);
+
+    accountInfoDiv.innerHTML = '';
+    accounts.forEach((account) => {
+        const accountHtml = `
+            <p>Account Number: ${account.getAccountNumber()}</p>
+            <p>Account Holder Name: ${account.getAccountHolderName()}</p>
+            <p>Balance: ${account.getBalance()}</p>
+        `;
+        accountInfoDiv.innerHTML += accountHtml;
+    });
+});
+
+depositBtn.addEventListener('click', () => {
+    const accountNumber = accountNumberInput.value;
+    const amount = parseFloat(prompt('Enter amount to deposit'));
+    const account = BankAccount.getAccounts().find((account) => account.getAccountNumber() === accountNumber);
+    if (account) {
+        account.deposit(amount);
+        accountInfoDiv.innerHTML = '';
+        const accounts = BankAccount.getAccounts();
+        accounts.forEach((account) => {
+            const accountHtml = `
+                <p>Account Number: ${account.getAccountNumber()}</p>
+                <p>Account Holder Name: ${account.getAccountHolderName()}</p>
+                <p>Balance: ${account.getBalance()}</p>
+            `;
+            accountInfoDiv.innerHTML += accountHtml;
+        });
+    } else {
+        alert('Account not found');
+    }
+});
+
+withdrawBtn.addEventListener('click', () => {
+    const accountNumber = accountNumberInput.value;
+    const amount = parseFloat(prompt('Enter amount to withdraw'));
+    const account = BankAccount.getAccounts().find((account) => account.getAccountNumber() === accountNumber);
+    if (account) {
+        account.withdraw(amount);
+        accountInfoDiv.innerHTML = '';
+        const accounts = BankAccount.getAccounts();
+        accounts.forEach((account) => {
+            const accountHtml = `
+                <p>Account Number: ${account.getAccountNumber()}</p>
+                <p>Account Holder Name: ${account.getAccountHolderName()}</p>
+                <p>Balance:</script>
+</head>
+<body>
+    <h1>Bank Account System</h1>
+    <form id="account-form">
+        <label for="account-number">Account Number:</label>
+        <input type="text" id="account-number" name="account-number"><br><br>
+        <label for="account-holder-name">Account Holder Name:</label>
+        <input type="text" id="account-holder-name" name="account-holder-name"><br><br>
+        <label for="balance">Balance:</label>
+        <input type="number" id="balance" name="balance"><br><br>
+        <button id="deposit-btn">Deposit</button>
+        <button id="withdraw-btn">Withdraw</button>
+    </form>
+    <div id="account-info"></div>
+</body>
+</html>

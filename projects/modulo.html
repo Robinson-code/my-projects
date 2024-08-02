@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Modulo Operator in JavaScript</title>
+  <script>
+    function checkNumber() {
+      var num1 = document.getElementById("num1").value;
+      var remainder = num1 % 2;
+      if (remainder == 0) {
+        alert("The number is even.");
+      } else {
+        alert("The number is odd.");
+      }
+    }
+  </script>
+</head>
+<body style="background-color: #cccccc">
+  <input type="number" id="num1" placeholder="Please enter a number">
+  <button onclick= "checkNumber()">Check</button>
+	<button name="clear">clear</clear>
+</body>
+</html>
